@@ -1,0 +1,11 @@
+/* pages/restaurant/restaurant-remark/index.wxss */
+@import "/pages/store/store-common/common.wxss";
+
+.remark{padding: 20rpx 30rpx;background: #fff;border-radius: 6rpx;}
+
+.remark-tag{margin-top: 16rpx;padding: 0 10rpx;line-height:24px;font-size: 12px;border:1px solid #aaa;display: inline-block;vertical-align: bottom;margin-right: 10rpx;border-radius: 6rpx;}
+.remark-tag:active{background: rgba(0, 0, 0, 0.05)}
+.textarea-box{width: 100%;height: 300rpx;border:1px solid #eee;padding: 20rpx;background: #f8f8f8;}
+.textarea-box textarea{width: 100%;height: 100%;}
+.across-item{display: inline-block}
+.remark-tag-selected{background-color: rgba(241,90,36,0.6)}

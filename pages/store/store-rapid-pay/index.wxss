@@ -1,0 +1,10 @@
+
+/* 门店公共样式 */
+@import "/pages/store/store-common/common.wxss";
+/* 公共优惠券样式 */
+@import "/pages/store/store-coupon/index.wxss";
+
+
+.list-tips{padding-top: 20rpx;}
+.right-more{padding-right: 10rpx;}
+

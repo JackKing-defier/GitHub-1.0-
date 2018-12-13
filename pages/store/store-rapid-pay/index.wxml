@@ -1,0 +1,52 @@
+<form bindsubmit="pay">
+  <view class="mt15 top-content f16">
+    <view class="flex">
+      <text>消费金额</text>
+      <view class="sub tr ml10">
+        <input name="pay_total" value='{{paytotal}}' bindinput="getpre" placeholder="请询问商家后输入" />
+      </view>
+    </view>
+    <view class="tr mcolor  gridXt f14 mt10 list-tips">提示：具体消费金额请询问店家</view>
+  </view>
+
+  <view class="mt10 ui-cells f16">
+    <view class="ui-cell flex flex-between  arrowR" bindtap="showMyCards">
+      <view>优惠券</view>
+      <block wx:if="{{usecard}}">
+        <view class="red f14 right-more">{{usecard.title}}</view>
+      </block>
+      <block wx:else>
+        <block wx:if="{{mycard.length<=0}}">
+          <view class="red f14 right-more">暂无优惠券</view>
+        </block>
+        <block wx:else>
+          <view class="red f14 right-more">未使用优惠券</view>
+        </block>
+      </block>
+    </view>
+    <view class="ui-cell flex flex-between gridXt">
+      <view>实付金额</view>
+      <view class="red f14">{{pay_amount}}元</view>
+    </view>
+  </view>
+  <radio-group bindchange="payTypeChange" wx:if="{{store_type==1&&is_member==1}}">
+    <view class="mt10 ui-cells f16">
+      <label>
+        <view class="ui-cell flex flex-between ">
+          <view>微信支付</view>
+          <radio value="1" checked="{{1==pay_type_index}}"></radio>
+        </view>
+      </label>
+      <label>
+        <view class="ui-cell flex flex-between gridXt">
+          <view>余额支付</view>
+          <radio value="2" checked="{{2==pay_type_index}}"></radio>
+        </view>
+      </label>
+    </view>
+  </radio-group>
+  <view class="m20">
+    <button type="primary" formType="submit" disabled="{{disabled}}">支付</button>
+  </view>
+</form>
+<include src="../store-coupon/index.wxml" />

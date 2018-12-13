@@ -1,0 +1,168 @@
+<!--pages/index/index.wxml-->
+  <view class="no-content tc" wx:if="{{coupon_data!==false&&coupon_data.length<=0}}">
+    <view class="zanwu"></view>
+    <view class="no-content-font">暂无优惠券</view>
+  </view>
+  <!--优惠劵-->
+  <!-- <view class="juan">
+    <view class="juan-list flex yohui">
+        <view class="juan-msg flex">
+            <view class="flexC mr20">
+                <view class="sub price">60<text class="f14">元</text></view>
+                <view class="linght">满20可用</view>
+            </view>
+            <view class="sub juan-title">春生杂货铺专用劵优惠劵</view>
+        </view>
+        <view class="recive tc fb">
+            <view>代金劵</view>
+            <view class="btn f12 mt5">点击领取</view>
+        </view>
+    </view>
+    <view class="juan-list flex zhekou">
+        <view class="juan-msg flex">
+            <view class="flexC mr20">
+                <view class="sub price">9.5<text class="f14">折</text></view>
+            </view>
+            <view class="sub juan-title">春生杂货铺专用劵优惠劵</view>
+        </view>
+        <view class="recive tc fb">
+            <view>折扣劵</view>
+            <view class="btn f12 mt5">点击领取</view>
+        </view>
+    </view>
+    <view class="juan-list flex manjian">
+        <view class="juan-msg flex">
+            <view class="flexC mr20">
+                <view class="sub price">60<text class="f14">元</text></view>
+                <view class="linght">满20可用</view>
+            </view>
+            <view class="sub juan-title">春生杂货铺专用劵优惠劵</view>
+        </view>
+        <view class="recive tc fb">
+            <view>满减劵</view>
+            <view class="btn f12 mt5">点击领取</view>
+        </view>
+    </view>
+</view> -->
+  <view class="juan mt15">
+    <block wx:for="{{coupon_data}}" wx:if="{{list_type==1}}">
+      <view class="ml15 mr15 coupon-list {{item.type==0?'youhui':'manjian'}}" bindtap='show_card_info' data-index="{{index}}">
+        <view class="stamp-top flex">
+          <view class="top-lf sub">
+            <view class="f18 lineText">
+              <text>{{item.title}}</text>
+            </view>
+            <view class="f14 lineText">
+              <text>{{item.type_name}}</text>
+            </view>
+            <view class="f14 lineText">
+              <text>{{item.discount}}优惠 满{{item.full_available}}元可用</text>
+            </view>
+          </view>
+          <button class="top-rg tc status01-color" data-id='{{item.id}}' catchtap='receiveCoupon'>领取</button>
+        </view>
+        <view class="stamp-footer flex f12 grey">
+          <text>有效期：{{item.use_start_time}}至{{item.use_end_time}}</text>
+          <text>还剩{{item.num-item.go_count}}份</text>
+        </view>
+        <view class='stamp-detail active  f12 grey' wx:if="{{item.is_show_info==1}}">
+          <view>
+              {{item.use_rule}}
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:for="{{coupon_data}}" wx:if="{{list_type==2}}">
+      <view class="ml15 mr15 coupon-list {{item.type==0?'youhui':'manjian'}}" bindtap='show_card_info' data-index="{{index}}">
+        <view class="stamp-top flex">
+          <view class="top-lf sub">
+            <view class="f18 lineText">
+              <text>{{item.title}}</text>
+            </view>
+            <view class="f14 lineText">
+              <text>{{item.store_name}}</text>
+            </view>
+            <view class="f14 lineText">
+              <text>{{item.discount}}{{item.type==0?'元':'折'}}优惠 满{{item.full_available}}元可用</text>
+            </view>
+          </view>
+          <!-- <button class="top-rg tc status01-color" data-id='{{item.id}}' catchtap='writeOffCoupon'>使用</button> -->
+        </view>
+        <view class="stamp-footer flex f12 grey">
+          <text>有效期：{{item.use_start_date}}至{{item.use_end_date}}</text>
+        </view>
+          <view class='stamp-detail active  f12 grey' wx:if="{{item.is_show_info==1}}">
+          <view>
+          {{item.use_rule}}
+          </view>
+        </view>
+      </view>
+    </block>
+    <!-- <view class="ml15 mr15 coupon-list manjian">
+        <view class="stamp-top flex">
+            <view class="top-lf sub">
+                <view class="f18 lineText"><text>68元代金券</text></view>
+                <view class="f14 lineText"><text>烫染直发代金券</text></view>
+            </view>
+            <button class="top-rg tc status01-color" catchtap="tabNav" data-url="../coupon/coupon" data-param="id=''">领取</button>
+        </view>
+        <view class="stamp-footer flex f12 grey">
+            <text>有效期：2017-12-12至2017-12-31</text>
+            <text>还剩 92 份</text>
+        </view>
+    </view>
+    <view class="ml15 mr15 coupon-list zhekou">
+        <view class="stamp-top flex">
+            <view class="top-lf sub">
+                <view class="f18 lineText"><text>68元代金券</text></view>
+                <view class="f14 lineText"><text>烫染直发代金券</text></view>
+            </view>
+            <button class="top-rg tc status01-color" catchtap="tabNav" data-url="../coupon/coupon" data-param="id=''">领取</button>
+        </view>
+        <view class="stamp-footer flex f12 grey">
+            <text>有效期：2017-12-12至2017-12-31</text>
+            <text>还剩 92 份</text>
+        </view>
+    </view>
+    <view class="ml15 mr15 coupon-list">
+        <view class="stamp-top flex">
+            <view class="top-lf sub">
+                <view class="f18 lineText"><text>68元代金券</text></view>
+                <view class="f14 lineText"><text>烫染直发代金券</text></view>
+            </view>
+            <text class="customicon-zhang">已领完</text>
+        </view>
+        <view class="stamp-footer flex f12 grey">
+            <text>有效期：2017-12-12至2017-12-31</text>
+            <text>还剩 92 份</text>
+        </view>
+    </view> -->
+  </view>
+
+
+
+<!-- 下面是公共引用部分 -->
+<view class="floatBox" style="z-index:10" wx:if="{{is_show_myCards==true&&mycard.length>0}}" bindtap='hideMyCards'>
+  <view class="use-juan">
+    <radio-group>
+      <label class="not-use flex gridXb mt10" bindtap='selectCard' data-index='-1'>
+        <view class="sub">不使用代金券</view>
+        <radio checked="{{select_card_index==-1}}" />
+      </label>
+      <view class="juan-items-box mt10">
+        <label class="juan-item flex mb10" wx:for="{{mycard}}" bindtap='selectCard' data-index='{{index}}'>
+          <view class="sub ml15">
+            <view class="shop-name f18">{{item.title}}</view>
+            <view class="mt5 tips-msg">
+              <view class="grey f12">{{item.discount}}{{item.type==0?'元':'折'}}优惠 满{{item.full_available}}元可用</view>
+              <view class="grey f12">有效期：{{item.use_start_date}}至{{item.use_end_date}}</view>
+            </view>
+          </view>
+          <radio checked="{{select_card_index==index}}" />
+        </label>
+      </view>
+    </radio-group>
+  </view>
+  <view class="floatBox floatBoxBg" style="display:block;"></view>
+</view>

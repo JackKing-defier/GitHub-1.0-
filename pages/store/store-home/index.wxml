@@ -1,0 +1,144 @@
+<import src="/pages/store/store-common/storetpl.wxml" />
+<template is="load_bg" data="{{is_show_load_bg}}">
+</template>
+<!--多门店-->
+<block wx:if="{{store_type==2}}">
+  <!-- 自动定位还没有好的时候显示 -->
+  <view class="location tc" wx:if="{{is_show_getLocation==true}}">
+    <view class='positioning'>
+      <view class="adress iconfont icon-locationfill"></view>
+      <view class="adress-quan"></view>
+      <view class="f16">正在定位中...</view>
+      <view class="grey f12">微信安卓版定位比较慢，请耐心等待</view>
+      <view class="mt15">
+        <button class="adress-btn" type="primary" size="mini" catchtap="onOpenMapTap">手动定位</button>
+      </view>
+    </view>
+  </view>
+  <!-- 自动定位或位置选择后显示 -->
+  <view class="many-shop" wx:if="{{is_show_getLocation==false}}">
+    <!-- 下拉刷新 -->
+    <block wx:if="{{is_toLoad}}">
+      <view class="top_loading">
+        <text></text>
+        <text></text>
+        <text></text>
+      </view>
+    </block>
+    <!--搜索-->
+    <form bindsubmit="onSearchSubmit" report-submit="true">
+      <view class="search-bar flex f14">
+        <view class="address lineText mr10 grey" bindtap="onOpenMapTap">
+          <text class="iconfont icon-locationfill"></text> {{address}}
+        </view>
+        <view class="input-inner sub">
+          <view class="flex search-box bgwhite">
+            <view class="search-select {{search_select_show==false?'arrowR':'arrowB'}}" catchtap="triggerSelect">{{search_select_item==1?'店铺':'商品'}}</view>
+            <!-- 商品店铺切换 弹出 -->
+            <view class="search-select-pop" wx:if="{{search_select_show==true}}">
+              <view class="search-select-item gridXb" catchtap="searchSelectItem" id="1">店铺</view>
+              <view class="search-select-item gridXb" catchtap="searchSelectItem" id="2">商品</view>
+            </view>
+            <input type="text" class="sub ml10" placeholder="请输入关键词" focus="{{searchShow}}" bindblur="onHideSearchBlur" confirm-type="搜索" name="keyword" id='keyword' bindconfirm='keyboardComplete' value="{{param.keyword}}" bindinput="search_words" catchtap="onShowSearchTap" />
+            <text class="ml5 mr15 iconfont icon-search grey"></text>
+            <button form-type="submit" hover-class="active" class="default searchbtn {{searchShow?'active':''}} f14">
+              <text class="iconfont icon-search"></text>
+            </button>
+
+          <!-- 搜索列表弹出 -->
+          <view class="search-list-pop" wx:if="{{search_think_words.length>0 && search_select_show!==true}}">
+            <view class="search-list-box">
+              <view class="search-list-item" wx:for="{{search_think_words}}" catchtap="thinkSearch" data-contents="{{word}}" wx:for-item="word" wx:key="index">{{word.search_type==1?word.store_name:word.g_name}}</view>
+            </view>
+          </view>
+            <!-- <text class="ml5 iconfont icon-close f12"></text>    -->
+          </view>
+          <!-- <label class="search-show tc grey bgwhite" wx:if="{{!searchShow}}" catchtap="onShowSearchTap">
+          <text class="mr5 iconfont icon-search"></text>
+          <text>{{search_p}}</text>
+        </label> -->
+        </view>
+      </view>
+    </form>
+
+
+    <!--Banner-->
+    <block wx:if='{{store_category_num>0}}'>
+      <swiper indicator-dots='{{indicatorDots}}' class="fenlei bgwhite" style="height:{{store_category_num<6?'208':'386'}}rpx;">
+        <swiper-item wx:for="{{store_category_list}}">
+          <view class="classify-box clearfix tc">
+            <block wx:for="{{item}}" wx:for-item="cateitem">
+              <view class="classify-list f14" bindtap="store_category_click" data-cate_name='{{cateitem.title}}' id='{{cateitem.id}}'>
+                <image class="list-img" src="{{cateitem.imgUrl}}" mode="aspectFill"></image>
+                <view class="lineText">{{cateitem.title}}</view>
+              </view>
+            </block>
+          </view>
+        </swiper-item>
+      </swiper>
+    </block>
+
+
+    <!-- 市集入口 -->
+    <view class="market-box" bindtap='jump_market' wx:if="{{is_show_market==1}}">
+      <image class="market-img" src="{{market_config.entrance_img?market_config.entrance_img:'http://www.ixiaochengxu.cc/resource/images/store/shiji.png'}}" mode="aspectFit"></image>
+      <!-- <image class="market-img" src="/images/market.png" mode="aspectFit"></image>
+      <view class="market-text">一市×集一</view> -->
+    </view>
+
+    <!--广告位-->
+    <!--超过4张广告图 建议尺寸750*375px start -->
+    <swiper class="ads" style="height:359rpx;" autoplay indicator-dots wx:if="{{advertCount>4}}">
+      <block wx:for="{{advertList}}" wx:for-item="advitem">
+        <swiper-item data-url="{{advitem.url}}" bindtap="advert_top_bind">
+          <image src="{{advitem.img_url}}" mode="aspectFill"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <!-- 超过4张广告图   end -->
+
+    <!-- 四张内广告图 start-->
+    <view class="ads clearfix ads-{{advertCount}}th" wx:if="{{advertCount<=4}}">
+      <block wx:for="{{advertList}}" wx:for-item="advitem">
+        <view class="ads-item" data-url="{{advitem.url}}" bindtap="advert_top_bind">
+          <image src="{{advitem.img_url}}" mode="aspectFill" class="ads-img"></image>
+        </view>
+      </block>
+    </view>
+    <!-- 四张内广告图 end-->
+    <!--排序分类-->
+    <!--<view class="flex tc paixu f16 grey mt10 mb10">
+    <view class="sub gridYr {{param.type==0?'active':''}}" catchtap="onSwtchTabTap" data-index="0">最新发布</view>
+    <view class="sub {{param.type==1?'active':''}}" catchtap="onSwtchTabTap" data-index="1">距离最近</view>
+  </view>-->
+    <!-- 排序 -->
+    <view class="nav-paixu mt10 {{isTabFixed==true?'fixed':''}}">
+      <view class="flex tc paixu">
+        <view class="sub gridYr paixu-item {{sort_index==4?'active':''}}" id="4" bindtap='sort_select'>智能排序</view>
+        <view class="sub gridYr paixu-item {{sort_index==1?'active':''}}" id="1" bindtap='sort_select'>距离最近</view>
+        <view class="sub gridYr paixu-item {{sort_index==2?'active':''}}" id="2" bindtap='sort_select'>销量最高</view>
+        <view class="sub gridYr paixu-item {{sort_index==3?'active':''}}" id="3" bindtap='sort_select' wx:if="{{is_ruzhu==0}}">最新入驻</view>
+      </view>
+    </view>
+
+    <import src="/pages/store/store-common/storetpl.wxml" />
+    <!--搜索店铺结果页  -->
+
+    <template is="store_list" data="{{store_list}}" wx:if="{{search_select_item_current==1}}">
+    </template>
+
+     <!--搜索商品结果页  -->
+    <template is="search-goods" data="{{search_goods_list}}" wx:if="{{search_select_item_current==2}}">
+    </template>
+    <view class="aside-float-box" wx:if="{{is_ruzhu==0}}">
+      <view class="aside-float">
+        <view class="ruzhu f14 write tc" bindtap="ruzhu_bind">入驻</view>
+      </view>
+    </view>
+  </view>
+</block>
+
+<!--单门店-->
+<view class="single-shop" wx:if="{{store_type==1}}">
+  <include src="/pages/store/store-info/index.wxml" />
+</view>

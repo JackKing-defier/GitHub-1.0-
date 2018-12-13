@@ -1,0 +1,6 @@
+/* pages/store/store-ruzhu-rule/index.wxss */
+
+.ruzhu-rule{padding: 30rpx;background: #fff;font-size: 32rpx; height: 100vh;}
+.ruzhu-rule image{max-width: 100%;}
+.protocol-title {text-align: center; font-weight: 600;font-size: 38rpx;}
+.protocol-contents{padding-top: 25rpx;line-height: 45rpx;white-space: pre-wrap;}

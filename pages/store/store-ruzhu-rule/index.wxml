@@ -1,0 +1,7 @@
+<!--pages/store/store-ruzhu-rule/index.wxml-->
+
+<view class="ruzhu-rule">
+  <view class="protocol-title">{{protocol_title}}</view>
+  <view class="protocol-contents">{{protocol_contents}}</view>  
+  <!-- <textarea  value='{{protocol_contents}}' disabled='true' style='margin-top:10px'></textarea> -->
+</view>

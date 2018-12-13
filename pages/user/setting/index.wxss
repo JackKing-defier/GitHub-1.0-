@@ -1,0 +1,18 @@
+/* pages/user/setting/index.wxss */
+@import '../user_index/index';
+.my-menu-item{
+    align-items: center;
+}
+.setBtn{
+    background-color: #fff;
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 32rpx;
+    color:#505050;
+    line-height: 50rpx;
+    text-align: left;
+    font-weight: bold;
+}
+.setBtn::after{
+    display: none;
+}

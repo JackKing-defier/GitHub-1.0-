@@ -1,0 +1,10 @@
+<view class="my-menu-box links">
+    <view class='my-menu-item flex gridXt' wx:for="{{other_menus}}" wx:key="{{index}}" wx:if="{{!isAli}}">
+        <text class="iconfont {{item.icon?item.icon:'icon-circle'}} mr10"></text>
+        <button class='setBtn sub' open-type="openSetting">{{item.text}}</button>
+    </view>
+    <view class="my-menu-item gridXt" wx:for="{{menus}}" wx:key="{{index}}" catchtap="onNavigateTap" data-name="{{item.name}}" data-url="/{{item.link}}">
+        <text class="iconfont {{item.icon?item.icon:'icon-circle'}} mr10"></text>
+        <text>{{item.text}}</text>
+    </view>
+</view>

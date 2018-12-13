@@ -1,0 +1,100 @@
+<!-- 建议尺寸750*375 -->
+<import src="/pages/store/store-common/storetpl.wxml" />
+  <template is="load_bg" data="{{is_show_load_bg}}">
+  </template>
+  <block wx:if="{{postlist == null||postlist.length<1}}">
+    <!--暂无内容提示 start-->
+    <view class="no-content tc">
+      <text class="no-content-icon iconfont icon-yemianwuneirong"></text>
+      <view class="no-content-font">暂无订单信息</view>
+    </view>
+    <!--暂无内容提示 end-->
+  </block>
+  <block wx:else>
+    <!-- <view class="top-bg flex">
+      <view class="toggle-btn active">店内</view>
+      <view class="toggle-btn">外卖</view>
+    </view> -->
+    <!-- <view class="top-content mt15 flex flex-between">
+      <view class="ui-navbar ui-navbar-active">全部</view>
+      <view class="ui-navbar">待付款</view>
+      <view class="ui-navbar">待使用</view>
+      <view class="ui-navbar">待评价</view>
+      <view class="ui-navbar">退款售后</view>
+    </view> -->
+    <view>
+      <view class="mt10">
+        <block wx:for="{{postlist}}">
+          <view class="ui-cells mb10" bindtap="user_orderinfo_bind" id="{{item.id}} wx:key={{item.id}}">
+            <!--  商品信息 -->
+            <view class="shop-msg flex flex-center">
+              <view class="shop-logo mr10">
+                <image class="circle" src="{{item.store_info.store_logo}}" mode="aspectFill"></image>
+              </view>
+              <view class="sub">{{item.store_info.store_name}} {{item.store_info.store_quyu==''?'':'('+item.store_info.store_quyu+')'}}</view>
+
+              <block wx:if="{{item.order_status==1&&item.order_type==2&&item.is_sure_order==0}}">
+                <view class="f12 red">待配送</view>
+              </block>
+              <block wx:else>
+                <view class="f12 red">{{item.order_status_txt}}</view>
+              </block>
+
+            </view>
+            <view>
+              <block wx:for="{{item.orderGoods}}" wx:for-item="vo">
+                <view class="goods-list flex">
+                  <view class="mr10 goods-img">
+                    <image src="{{vo.g_img}}" mode="aspectFill"></image>
+                  </view>
+                  <view class="sub flexC">
+                    <view class="sub lineText goods-name">{{vo.goods_name}}</view>
+                    <view class="grey mt5 f12 lineText">{{vo.goods_attr}}</view>
+                    <view class="flex flex-between msg-bottom f14">
+                      <view class="grey">×{{vo.goods_number}}</view>
+                      <view>
+                        <!-- 原价 -->
+                        <!-- <text class="lightgrey delLine mr10">￥28</text> -->
+                        <!-- 支付价格 -->
+                        <text class="f14 fb">￥{{vo.goods_price}}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+            <!-- <view class="order-more arrowB f12 grey tc"></view> -->
+            <view class="f12 order-total gridXb tr">
+            <!-- <view class="grey">下单时间：2017-10-10</view> -->
+            <view> 合计:￥{{item.order_amount}}(含运费￥{{item.shipping_fee}}) 实际支付:￥{{item.settlement_total_fee=='0.00'||item.settlement_total_fee==null ? item.order_amount : item.settlement_total_fee}}</view>
+            </view>
+            <view class="ui-cell tr order-btn">
+              <block wx:if="{{item.order_status==0}}">
+                <button size="mini" type="default" plain catchtap="change_order_status_or_show" id="{{item.id}}" data-change_type='1'>取消</button>
+                <button size="mini" type="primary" size='mini' plain catchtap="user_orderinfo_bind" id="{{item.id}}" >支付</button>
+              </block>
+              <block wx:if="{{item.order_status==1}}">
+                <block wx:if="{{item.order_type==2&&item.is_sure_order==1}}">
+                  <button type="primary" size='mini' plain catchtap="change_order_status_or_show" id="{{item.id}}" data-change_type='2' data-order_type='{{item.order_type}}'>确认送达</button>
+                </block>
+                <block wx:if="{{item.order_type==1}}">
+                  <button size='mini' type="primary" plain catchtap="change_order_status_or_show" id="{{item.id}}" data-change_type="2" data-order_type='{{item.order_type}}'>确认领取</button>
+                    <button size='mini' type="primary" plain  id="{{item.id}}" >去验券</button>
+                </block>
+                <block wx:if="{{item.pay_id ==1}}">
+                <button size='mini' type="primary" plain catchtap="change_order_status_or_show" id="{{item.id}}" data-refund="true" data-refundstatus="{{item.apply_refund}}" data-store_id="{{item.store_id}}">{{item.apply_refund==0?'申请退款':'退款详情'}}</button>
+                </block>
+              </block>
+              
+              <block wx:if="{{item.order_status==2}}">
+                <button type="primary" size='mini' plain catchtap="order_go_comment_bind" id="{{item.id}}">评价</button>
+              </block>
+              <block wx:if="{{item.order_status==3||item.order_status==7}}">
+                <button size="mini" type="default" plain catchtap="change_order_status_or_show" id="{{item.id}}" data-change_type='3'>删除</button>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>

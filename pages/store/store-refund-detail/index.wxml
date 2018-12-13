@@ -1,0 +1,25 @@
+<!--pages/restaurant/restaurant-refund-detail/index.wxml-->
+<view class="goods-info mb10">
+  <view class="goods-info-item">商家名称：{{order_info.store_name}}</view>
+  <view class="goods-info-item">订单编号：{{order_info.order_sn}}</view>
+  <view class="goods-info-item">订单金额：<text class="red">￥{{order_info.settlement_total_fee=='0.00'||order_info.settlement_total_fee==null ? order_info.order_amount : order_info.settlement_total_fee}}</text></view>
+</view>
+
+<view class="refund-box">
+  <view class="refund-tit gridXb">
+    <view>退款流程</view>
+    <view><button class="cancle-refunds-btn gridFour" catchtap="cancleRefund" wx:if="{{order_info.status==1}}" disabled="{{cancle_button}}">取消退款</button></view>
+  </view>
+  <view class="refund-item-box">
+    <view class="refund-item" wx:if="{{order_info.status>=2}}">
+      <view class="refund-item-tit">{{order_info.status==2?'商家已同意退款':''}}{{order_info.status==3?'商家已拒绝您的退款':''}}{{order_info.status==4?'用户取消退款':''}}</view>
+      <view class="refunds-tips" wx:if="{{order_info.status==3}}">驳回原因：<text class="refunds-reasons">{{order_info.store_reject_reason}}</text></view>
+      <view class="refunds-time">{{order_info.deal_time}}</view>
+    </view>
+    <view class="refund-item" wx:if="{{order_info.status>=1}}">
+      <view class="refund-item-tit">发起退款申请</view>
+      <view class="refunds-tips">退款原因：<text class="refunds-reasons">{{order_info.reason_tag}}  {{order_info.other_reason?order_info.other_reason:''}}</text></view>
+      <view class="refunds-time">{{order_info.apply_time}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,25 @@
+
+/* 门店公共样式 */
+@import "/pages/store/store-common/common.wxss";
+
+
+
+/* 标题 */
+.shop-tit.gridXb::before{left: 0;}
+
+/* 评论 */
+.appraise-userimg{width:80rpx;height: 80rpx;}
+.appraise-pho-item{width:186rpx;height: 186rpx;margin-top: 16rpx;margin-right: 16rpx;border-radius: 6rpx;overflow: hidden;display: inline-block;vertical-align: bottom;}
+.appraise-pho-item:nth-child(3n+3){margin-right: 0;}
+.appraise-right.sub{overflow: visible;}
+.appraise-right::before{bottom: -30rpx;}
+
+/* 市集商品列表 */
+.marker-goods-item{display: flex;display: -webkit-flex;background: #fff;padding: 30rpx;margin-bottom: 20rpx;}
+.marker-goods-img{width: 180rpx;height: 180rpx;margin-right: 20rpx;}
+.goods-info{flex: 1;line-height: 100%;overflow: hidden;}
+.goods-name{line-height: 1.3;}
+.distance{font-size: 28rpx;color: #999;margin-top: 10rpx;}
+.goods-price{font-weight: bold;color: #f66;}
+.goshop-btn{font-size: 14px;line-height: 30px;padding: 0 30rpx;border-radius: 6rpx;margin-top: 20rpx;}
+

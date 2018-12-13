@@ -1,0 +1,42 @@
+<import src="/pages/store/store-common/storetpl.wxml" />
+<template is="load_bg" data="{{is_show_load_bg}}">
+</template>
+<block wx:if="{{is_show_load_bg==false}}">
+<view class="top-nav-box">
+  <view class="flex tc top-nav">
+    <view class="fenlei-nav gridYr top-nav-item {{is_show_cates==true?'active':''}}" id='1' bindtap='top_nav_select'>
+      <text class="lineText fenlei-name">{{ c_cate_select_title}}</text>
+    </view>
+    <view class="sub gridYr top-nav-item grey {{is_show_sort==true?'active':''}}" id='2' bindtap='top_nav_select'>{{sort_title}}
+      <text class="ml5 iconfont icon-shaixuan"></text>
+    </view>
+  </view>
+  <view class="menu-select-box" wx:if="{{is_show_cates==true}}">
+    <view class="menu-select flex">
+      <view class="menu-name">
+        <view class="menu-item {{p_cate_select_id==-1?'active':''}}" id='-1' data-type="1" data-index="-1" bindtap='clickCate'>全部</view>
+        <view class="menu-item {{p_cate_select_id==item.id?'active':''}}" wx:for="{{cates}}" id="{{item.id}}" data-type="1" data-index="{{index}}" bindtap='clickCate'>{{item.title}}</view>
+      </view>
+      <view class="menu-detail sub">
+        <view class="menu-item {{c_cate_select_id==-1?'active':''}}" wx:if="{{p_cate_select_index>=0}}" id='-1' data-type="2" data-index="-1" bindtap="clickCate">全部</view>
+        <view class="menu-item {{c_cate_select_id==item.id?'active':''}} " wx:for="{{cates[p_cate_select_index]['c_cates']}}" id="{{item.id}}" data-type="2" data-index="{{index}}" bindtap='clickCate'>{{item.title}}</view>
+      </view>
+    </view>
+    <view class="floatBoxBg" wx:if="{{is_show_cates==true}}" id='66' bindtap='top_nav_select'></view>
+  </view>
+  <view class="screen-box " wx:if="{{is_show_sort==true}}">
+    <view class="top-screen">
+      <view class="menu-item {{sort_index==1?'active':''}}" data-title="距离最近" id="1" bindtap='sort_select'>距离最近
+        <text class="fr iconfont icon-check" wx:if="{{sort_index==1}}"></text>
+      </view>
+      <view class="menu-item {{sort_index==2?'active':''}}" data-title="销量最高" id="2" bindtap='sort_select'>销量最高
+        <text class="fr iconfont icon-check" wx:if="{{sort_index==2}}"></text>
+      </view>
+    </view>
+    <view class='floatBoxBg' wx:if="{{is_show_sort==true}}" id='66' bindtap='top_nav_select'></view>
+  </view>
+</view>
+
+    <template is="store_list" data="{{store_list}}">
+    </template> 
+    </block>

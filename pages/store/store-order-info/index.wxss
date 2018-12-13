@@ -1,0 +1,41 @@
+/* pages/store/store-order-info/index.wxss */
+
+/* 门店公共样式 */
+@import "/pages/store/store-common/common.wxss";
+
+/* 支付倒计时 */
+.countdown-box{font-weight: bold;margin-bottom: 20rpx;}
+.countdown-item{display: inline-block;width:40rpx;height: 40rpx;line-height: 40rpx;font-size: 28rpx;text-align: center;border-radius: 6rpx;background: #66cc66;color: #fff;margin-left: 6rpx;}
+
+.top-btn button{padding: 0 24rpx;border-radius: 60rpx;}
+.top-btn button::after{border-radius: 60rpx;} 
+.top-btn button:nth-child(n+2){margin-left: 30rpx;}
+.round-corner-cut{border-bottom: none;}
+
+/*二维码*/
+.scand-img{width: 140px;height: 140px;margin: 0 auto;}
+
+.shop-logo {width:80rpx;height: 80rpx;}
+.right-more{padding-right:30rpx;}
+.right-more.arrowR::before{right: 0;}
+.shop-title.arrowR::before{transform:translateY(-50%) scale(1) rotate(45deg);}
+
+
+.goods-item{padding:20rpx 30rpx;background: var(--bggrey);}
+.out-goods-img{width: 100rpx;height: 100rpx;}
+
+.daohang{font-size: 40rpx;}
+
+/* 联系商家 */
+.contact-tell{padding:30rpx;background: #fff;text-align: center;font-size: 32rpx;}
+.contact-tell.gridXt::before{left: 0;}
+
+
+/* 支付方式 */
+.pay-method{background: #fff;position: fixed;bottom: 0;left: 0;right: 0;z-index: 1;transform: translateY(100%);animation: fadeInUp 0.3s 0.1s linear forwards;}
+.total-price{padding: 30rpx 30rpx 10rpx;font-size: 38rpx;}
+
+@keyframes fadeInUp{
+  0%{transform: translateY(100%);}
+  100%{transform: translateY(0);}
+}

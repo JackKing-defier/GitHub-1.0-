@@ -1,0 +1,115 @@
+
+/* 多色版变量 */
+@import "/css/DgStore/DgStore-template-default.wxss";
+/* 字体图标 */
+@import "/pages/store/store-common/storeFont.wxss";
+.iconfont{font-size: inherit;} 
+
+page{font-size: 32rpx;}
+
+.iconfont{display: inline-block;vertical-align: bottom;}
+.icon-favorfill{color: inherit;}
+.gridFour::before{border-color: currentColor;} 
+.mcolor{color: var(--DStore-mcolor);}
+.fb{font-weight: bold;}
+.grey{color: var(--grey);}
+.lightgrey{color: var(--lightgrey);}
+.yellow{color: var(--yellow);}
+.red{color: var(--red);}
+.self-center{align-self: center;}
+.self-top{align-self: flex-start;}
+.self-bottom{align-self: flex-end;}
+.flex-center{align-items: center;}
+.flex-between{justify-content: space-between;}
+
+
+[class*=title]{font-weight: bold;font-size: 32rpx;}
+image{width: 100%;height: 100%;}
+.img,.scale-rule{width: 100%;height: 100%;}
+.scale-rule{position: absolute;top:0;left: 0;}
+image.circle{border-radius: 50%;}
+
+/* 按钮 */
+button{opacity: .9;vertical-align: bottom;}
+.button-hover,button[loading]{opacity: 0.8;}
+button[type='primary']{background: var(--DStore-mcolor);color: #fff;}
+.button-hover[type="primary"],button[type="primary"][loading]{background: var(--DStore-mcolor);color: #fff;}
+button[type='warn']{background: var(--DStore-warn-color);color: #fff;}
+.button-hover[type="warn"],button[type="warn"][loading]{background: var(--DStore-warn-color);color: #fff;}
+button:not([plain])::after{border:none;}
+button[type="default"]::after{border: 1px solid rgba(0, 0, 0, 0.2);}
+
+button[type="primary"][plain]{color: var(--DStore-mcolor);border-color: currentColor;}
+.button-hover[type="primary"][plain]{background-color: rgba(var(--DStore-mcolor-rgb),0.2);color: var(--DStore-mcolor);border-color: currentColor;}
+button[type="warn"][plain]{color: var(--DStore-warn-color);border-color: currentColor;}
+.button-hover[type="warn"][plain]{background-color: rgba(var(--DStore-warn-rgb),0.2);color: var(--DStore-warn-color);border-color: currentColor;}
+/* 按钮边框 */
+button[plain],button[type="default"][plain],button[plain][type="primary"],button[plain][type="warn"]{border: none;}
+button[plain]::after,button[type="default"][plain]::after,button[plain][type="primary"]::after,button[plain][type="warn"]::after{border: 1px solid currentColor;}
+
+/* 禁用 固定颜色值*/
+button[disabled][type="primary"],
+button[disabled][type="wran"]{background: #d3d3d3;}
+button[disabled]::after{border: none;}
+button[plain][disabled][type="primary"],
+button[plain][disabled][type="wran"]{background: rgba(0, 0, 0, 0.05);color: #aaa;border-color: #d3d3d3;}
+/* mini按钮 */
+button[size="mini"]{border-radius: 3px;padding-left: 12px;padding-right: 12px;}
+button[size="mini"]::after{border-radius: 6px;}
+
+
+/* 列表 */
+.ui-cells{background: var(--white);}
+.ui-cell{padding: 30rpx;}
+.ui-cell.gridXb::before,.ui-cell.gridXt::before{left: 30rpx;}
+.ui-cell[class*=title].gridXb::before{left: 0;}
+.ui-cell.gridXt:first-child::before{display: none;}
+.ui-cell.gridXb:last-child::before{display: none;} 
+.ui-cells-access .ui-cell:not(.no-access):active,.ui-cell-access:active{background: var(--bg-active);}
+.ui-cell-icon{font-size: 38rpx;}
+
+/* 两边圆点虚线分割 */
+.round-corner-cut{position: relative;overflow: visible;border-top: 1px dashed #d3d3d3;border-bottom: 1px dashed #d3d3d3;}
+.round-corner-cut::before,.round-corner-cut::after{content: '';width: 40rpx;height: 40rpx;border-radius: 50%;background: #f5f5f5;position:absolute;top: -20rpx;}
+.round-corner-cut::before{left: -20rpx;}
+.round-corner-cut::after{right: -20rpx;}
+
+/* 底部固定 */
+.bottom-fixed{position:fixed;bottom: 0;left: 0;right:0;z-index: 1;overflow: visible;}
+/* 星级 */
+.star{color: var(--yellow);line-height: 1.6;}
+/* 统一头部样式 */
+.top-content{border-radius: 20rpx 20rpx 0 0;background: var(--white);padding:30rpx;position: relative;}
+
+/* 标签 */
+.shop-tag text{padding:4px 12rpx;line-height:1;font-size:12px;margin-right: 10rpx;display: inline-block; background:rgba(var(--DStore-mcolor-rgb),0.05); color:rgba(var(--DStore-mcolor-rgb),0.7); border-radius: 2px;} 
+.shop-tag text:last-child{margin-right: 0;}
+
+/* 查看更多 */
+.right-more{padding-right: 26rpx;line-height: 1;align-self: center;}
+.right-more.arrowR::before{right:0;}
+
+/* 加载图片 */
+.loading-data{width:100%;height: 100vh;padding: 50px;}
+.loading-data image{width:40%;}
+
+/*************************/
+
+/*没有更多了*/
+.nothing{width: 70%;margin-left: auto;margin-right: auto;}
+.nothing .line{height: 1rpx;background: #e2e2e2;margin-top: 20rpx;}
+
+/* 没有数据 */
+.no-content-img{width:50%;}
+
+.bgwhite{background: var(--white);}
+
+.green,.ress-nav-active,.ress-side-active,.sp-item-i.active,.filter-item-active,.popup-btn>view:nth-child(n+2){ color: var(--DStore-mcolor);}
+page .wx-swiper-dot.wx-swiper-dot-active{background: var(--DStore-mcolor) !important;}
+.goods-title::before,.yuding,button[type="primary"],.ress-side-active::after,.count-btn,.cart-circle,.comm-name-score,.other-msg text,.popup-btn>view{background: var(--DStore-mcolor);}
+.ress-nav-active::before{ border-bottom-color:var(--DStore-mcolor);}
+.sp-item-i.active::before,.popup-btn>view:nth-child(n+2){ border-color:var(--DStore-mcolor);}
+button[type="primary"][disabled],button[type="primary"][loading],.button-hover[type="primary"]{background: var(--DStore-lightmcolor);}
+
+
+.counts,.count-spec-c{ background:var(--DStore-mcolor);}

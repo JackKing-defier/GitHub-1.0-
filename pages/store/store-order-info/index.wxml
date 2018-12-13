@@ -1,0 +1,200 @@
+<!--pages/store/store-order-info/index.wxml-->
+<view class="m15">
+  <view class="top-content tc">
+    <view class="countdown-box" wx:if="{{oinfo.order_status==0}}">
+      <view wx:if="{{count_down.hours_first>0||count_down.hours_second>0}}" style="display:inline-block">
+      <text class="countdown-item">{{count_down.hours_first}}</text>
+      <text class="countdown-item">{{count_down.hours_second}}</text>
+      :
+      </view>
+      <text class="countdown-item">{{count_down.minutes_first}}</text>
+      <text class="countdown-item">{{count_down.minutes_second}}</text>
+      :
+      <text class="countdown-item">{{count_down.second_first}}</text>
+      <text class="countdown-item">{{count_down.second_second}}</text>
+      
+    </view>
+    <view class="fb f18">
+      <block wx:if="{{oinfo.order_status==1&&oinfo.order_type==2&&oinfo.is_sure_order==0}}">
+        待配送
+      </block>
+      <block wx:else>
+        {{oinfo.order_status_txt}}
+      </block>
+    </view>
+    <!-- <view class="grey mt5 f14">请等待商家接单</view> -->
+    <view class="mt20 top-btn">
+      <block wx:if="{{oinfo.order_status==0}}">
+        <button size="mini" plain bindtap="change_order_status_or_show" id="{{oinfo.id}}" data-change_type='1'>取消订单</button>
+        <button size="mini" type="primary" bindtap="show_paytype_bind" id="{{oinfo.id}}" loading="{{submitIsLoading}}" disabled="{{buttonIsDisabled}}">立即支付</button>
+      </block>
+      <block wx:if="{{oinfo.order_status==1}}">
+        <block wx:if="{{oinfo.order_type==2&&oinfo.is_sure_order==1}}">
+          <button size="mini" type="primary" bindtap="change_order_status_or_show" id="{{oinfo.id}}" data-change_type='2'>确认送达</button>
+        </block>
+        <block wx:if="{{oinfo.order_type==1}}">
+          <button size="mini" type="primary" bindtap="change_order_status_or_show" id="{{oinfo.id}}" data-change_type='2'>确认领取</button>
+        </block>
+        <block wx:if="{{oinfo.pay_id ==1}}">
+        <button size='mini' type="primary" plain catchtap="change_order_status_or_show" id="{{oinfo.id}}" data-refund="true" data-refundstatus="{{oinfo.apply_refund}}" data-store_id="{{oinfo.store_id}}">{{oinfo.apply_refund==0?'申请退款':'退款详情'}}</button>
+        </block>
+      </block>
+      <block wx:if="{{oinfo.order_status==2}}">
+        <button size="mini" plain bindtap="change_order_status_or_show" id="{{oinfo.id}}" data-change_type='3'>删除订单</button>
+        <button size="mini" type="primary" bindtap="order_go_comment_bind" id="{{oinfo.id}}">立即评价</button>
+      </block>
+      <block wx:if="{{oinfo.order_status==3||oinfo.order_status==7}}">
+      <button size="mini" plain bindtap="change_order_status_or_show" id="{{oinfo.id}}" data-change_type='3'>删除订单</button>
+      </block>
+
+    </view>
+  </view>
+  <view class="ui-cells ui-cell tc round-corner-cut" wx:if="{{oinfo.order_status==1 && oinfo.order_type==1}}">
+    <view>核销码：{{oinfo.order_sn}}</view>
+    <canvas class="scand-img" hidden="{{canvasHidden}}" canvas-id="mycanvas" />
+  </view>
+  <view class="mt10 ui-cells ui-cell">
+    <!-- 商家 -->
+    <view class="flex flex-center arrowR">
+      <view class="shop-logo mr10">
+        <image class="circle" src="{{store_data.store_logo}}" mode="aspectFill"></image>
+      </view>
+      <view class="shop-title">{{store_data.store_name}}
+        <text wx:if="{{store_data.store_quyu}}">（{{store_data.store_quyu}}）</text>
+      </view>
+    </view>
+    <!-- 商品列表 -->
+    <view>
+      <block wx:for="{{oinfo.glist}}" wx:for-item="gitem">
+        <view class="mt10 goods-item flex" bindtap="go_store_info_bind" id="{{oinfo.store_id}}">
+          <view class="out-goods-img mr10">
+            <image src="{{gitem.goods_img}}" mode="aspectFill"></image>
+          </view>
+          <view class="sub mr15 flexC">
+            <view class="sub lineText2">{{gitem.goods_name}}</view>
+            <view class="grey f12">×{{gitem.goods_number}}</view>
+          </view>
+          <view class="self-bottom">￥{{gitem.goods_price}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="mt10 flex flex-between f14">
+      <view>配送费</view>
+      <view class="grey">+￥{{oinfo.shipping_fee}}</view>
+    </view>
+
+    <view class="flex mt10 f14" wx:if="{{oinfo.is_coupon==1}}">
+      <view class="sub">优惠券</view>
+      <view class="red" wx:if="{{oinfo.coupon_type==0}}">-￥{{oinfo.coupon_discount}}</view>
+      <view class="red" wx:if="{{oinfo.coupon_type==1}}">{{oinfo.coupon_discount}}折</view>
+
+    </view>
+  </view>
+  <!-- 合计 -->
+  <view class="ui-cells ui-cell tr gridXt">合计：
+    <text class="red fb">￥{{oinfo.order_amount}}</text>
+  </view>
+  <view class="ui-cells ui-cell tr gridXt">实际支付：
+    <text class="red fb">￥{{oinfo.settlement_total_fee=='0.00'||oinfo.settlement_total_fee==null ? oinfo.order_amount : oinfo.settlement_total_fee}}</text>
+  </view>
+  <!-- 配送信息  start-->
+  <view class="mt10 ui-cells ui-cell" wx:if="{{oinfo.order_type==2}}">
+    <view class="title">配送信息</view>
+    <view class="grey f14">
+      <view class="mt5 flex" wx:if='{{oinfo.deliveryman_name}}'>
+        <view class="mr15">配送员姓名</view>
+        <view class="sub">{{oinfo.deliveryman_name}}</view>
+      </view>
+      <view class="mt5 flex" wx:if='{{oinfo.deliveryman_mobile}}'>
+        <view class="mr15">配送员电话</view>
+        <view class="sub">{{oinfo.deliveryman_mobile}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">收货人姓名</view>
+        <view class="sub">{{oinfo.consignee}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">收货人电话</view>
+        <view class="sub">{{oinfo.mobile}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">收货人地址</view>
+        <view class="sub"><text wx:if="{{oinfo.province !=0}}">{{oinfo.province}}</text> <text wx:if="{{oinfo.city !=0}}">{{oinfo.city}}</text> <text wx:if="{{oinfo.area !=0}}">{{oinfo.area}}</text>{{oinfo.address}}</view>
+      </view>
+      <!-- <view class="mt5 flex">
+        <view class="mr15">时间</view>
+        <view class="sub">立即配送/下午15:00配送</view>
+      </view> -->
+    </view>
+  </view>
+  <!-- 配送信息  end-->
+  <!-- 取货信息  start-->
+  <view class="mt10 ui-cells ui-cell" wx:if="{{oinfo.order_type==1}}">
+    <view class="title">自提信息</view>
+    <view class="grey f14">
+      <view class="mt5 flex">
+        <view class="mr15">姓名</view>
+        <view class="sub">{{oinfo.consignee}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">电话</view>
+        <view class="sub">{{oinfo.mobile}}</view>
+      </view>
+      <view class="mt5 flex" bindtap='get_location_bind'>
+        <view class="mr15">自提地址</view>
+        <view class="sub mr10">{{store_data.store_address}}</view>
+        <view class="daohang mcolor iconfont icon-daohang"></view>
+      </view>
+    </view>
+  </view>
+  <!-- 取货信息  end-->
+  <view class="contact-tell gridXt" bindtap='call_phone_bind'>
+    <text class="tell mr5 mcolor iconfont icon-dianhua"></text>联系商家</view>
+  <view class="mt10 ui-cells ui-cell">
+    <view class="title">订单信息</view>
+    <view class="grey f14">
+      <view class="mt5 flex">
+        <view class="mr15">订单号码</view>
+        <view class="sub">{{oinfo.order_sn}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">下单时间</view>
+        <view class="sub">{{oinfo.ctime}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">支付方式</view>
+        <view class="sub">{{oinfo.pay_name}}</view>
+      </view>
+      <view class="mt5 flex">
+        <view class="mr15">订单备注</view>
+        <view class="sub">{{oinfo.post_info||'无'}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 支付弹出框 -->
+<view class='floatBox' wx:if="{{is_show_pay_type}}">
+  <view class=" pay-method">
+    <view class='total-price red tc'>总计：{{oinfo.order_amount}}元</view>
+    <view class="ui-cells">
+      <radio-group bindchange="payTypeChange" wx:if="{{store_type==1&&is_member==1}}">
+        <label>
+          <view class="ui-cell flex flex-between ">
+            <view>微信支付</view>
+            <radio value='1' checked="{{pay_type_index==1}}"></radio>
+          </view>
+        </label>
+        <label>
+          <view class="ui-cell flex flex-between">
+            <view>余额支付</view>
+            <radio value='2' checked="{{pay_type_index==2}}"></radio>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+    <view class='m15'>
+      <button type='primary' id="{{oinfo.id}}" bindtap='order_go_pay_bind'>立即支付</button>
+    </view>
+  </view>
+  <view class='floatBox floatBoxBg' style='display:block' bindtap='show_paytype_bind'></view>
+</view>

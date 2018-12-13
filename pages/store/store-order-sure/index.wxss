@@ -1,0 +1,56 @@
+/* pages/restaurant/restaurant-cart/index.wxss */
+
+/* 门店公共样式 */
+@import "/pages/store/store-common/common.wxss";
+
+/* 店内商品结算 */
+.goods-img{width:160rpx;height: 160rpx;}
+.number{padding:30rpx 0;}
+.buy-couts{display: inline-block;text-align: center;vertical-align: bottom;box-sizing: border-box;}
+.num-btn{width: 50rpx;height: 50rpx;line-height: 50rpx;border-radius:50%;text-align: center;background: var(--lightgrey);display: inline-block;color: var(--white);font-size: 56rpx;vertical-align: bottom;}
+
+
+.total-price{padding:0 30rpx;line-height: 110%;}
+.pay-now{border-radius: 0; width: 240rpx; height: 96rpx; line-height: 96rpx;}
+.bottom-fixed-box{height:106rpx;}
+
+/* 外卖商品结算 */
+radio{transform-origin: right;transform: scale(0.9);}
+page .wx-radio-input-checked{background: var(--DStore-mcolor)!important;border-color:  var(--DStore-mcolor)!important;}
+.shop-name.gridXb::before{left: 0;}
+.out-goods-img{width: 100rpx;height: 100rpx;}
+.out-right-more{padding-right: 20rpx;}
+.out-right-more::before{right: 0;}
+
+
+/*添加地址*/
+ .addadress,.adress{padding:20rpx;padding-left:30rpx;background: #fff;}
+.line{width: 100%;background: linear-gradient(#fff,#fff) padding-box,repeating-linear-gradient(-45deg,#fb8b8b 0,#fb8b8b 12.5%,transparent 0,transparent 25%,#88c3ec 0,#88c3ec 37.5%,transparent 0,transparent 50%) 0 / 160rpx 160rpx;border-top: 6rpx solid transparent;}
+.ress-c{ background: #fff;}
+.ress-c-i{ padding:30rpx 20rpx 30rpx 0; margin-left: 30rpx; width: auto;}
+.ress-cl{ width: 50%;}
+.ress-cr,.ress-cc{ margin-left: 20rpx; display: -webkit-box; -webkit-box-align:center;}
+
+.ress-c-b{ height: 132rpx;}
+.ress-float{ height: 92rpx; background: #fff; z-index: 9;}
+.float-price{ padding: 0 30rpx; line-height: 92rpx;}
+.float-btn-s{ border-radius: 0; width: 240rpx; height: 92rpx; line-height: 92rpx;}
+.float-btn-s::after{ display: none;}
+
+.ress-name{ white-space: nowrap;  line-height: 40rpx;}
+.ress-c-tt{ height: 40rpx; width:100%;}
+
+.fbox{ z-index: 9999; }
+.fxz{background: #fff; position: absolute; left: 0; bottom: 0; right: 0; padding: 50rpx; z-index: 9;}
+.fbg{ position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8);}
+.fxz-item{ padding:30rpx 0; display: block;}
+.fxz-item.active{ background: #eee;}
+.fxz-item:last-child::before{ display: none;}
+
+.goods-img{width: 100rpx;height: 100rpx;}
+.goods-img image{width: 100%;height: 100%;}
+.num-add{width:50rpx;line-height:50rpx;height:50rpx;}
+.buy-couts{width: 70rpx;}  
+
+@import "/pages/store/store-coupon/index.wxss";
+

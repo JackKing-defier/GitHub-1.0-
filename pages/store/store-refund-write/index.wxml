@@ -1,0 +1,20 @@
+<!--pages/restaurant/restaurant-remark/index.wxml-->
+<form bindsubmit="commitApply" report-submit="true">
+<view class="m15">
+  <view class="remark">
+    <view>退款原因</view>
+    <view class="remark-tag-box">
+      <view class="across-item" wx:for="{{refund_reason_list}}" wx:for-item="tag" wx:key="index">
+      <button class="remark-tag {{current_select_reason==tag.name?'remark-tag-selected':''}}" catchtap='buttonChange' data-current="{{tag}}">{{tag.name}}</button>
+      </view>
+    </view>
+  </view>
+  <view class="remark mt10">
+    <view>其他原因</view>
+    <view class="textarea-box mt10">
+      <textarea name="beizhu" placeholder="请输入其他退款原因" placeholder-style="font-size:14px;"></textarea>
+    </view>
+  </view>
+  <view class="mt20"><button type="primary" formType="submit" disabled="{{submitBtn}}">提交</button></view>
+</view>
+</form>

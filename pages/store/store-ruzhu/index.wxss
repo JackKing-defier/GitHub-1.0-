@@ -1,0 +1,58 @@
+/* 门店公共样式 */
+@import "/pages/store/store-common/common.wxss";
+/**index.wxss**/
+page{background: #fff;}
+[class*="text"],[class*="name"],[class*="radio-group"],[class*="picker"]{height: 92rpx;line-height: 92rpx;}
+.list-li{overflow: hidden;}
+.list-li label text.red{margin-right: 4rpx;color:#f00;}
+.list-li .name{width: 195rpx;}
+.list-li .name.size{width: 100%;}
+.list-li .list-in{flex-wrap:wrap;margin-right: -20rpx;}
+.list-li .list-icon{width:100%;height:40rpx;background: rgba(0, 0, 0, .6);position: absolute;bottom: 0;left: 0;}
+.list-li .list-icon .icon{width: 24rpx;height: 24rpx;line-height: 24rpx;border:1rpx solid #fff;border-radius:50%;position: absolute;bottom: 9rpx;left:50%;-webkit-transform: translateX(-50%);transform: translateX(-50%);}
+.list-li .list-icon .icon::before,.list-li .list-icon .icon::after{content: '';display: block;width: 2rpx;height: 12rpx;background: #fff;position: absolute;top:50%;left: 50%;}
+.list-li .list-icon .icon::before{-webkit-transform: translate(-50%,-50%) rotate(45deg);transform: translate(-50%,-50%) rotate(45deg);}
+.list-li .list-icon .icon::after{-webkit-transform: translate(-50%,-50%) rotate(-45deg);transform: translate(-50%,-50%) rotate(-45deg);}
+
+.list-li .list-int{margin-right: 0;}
+.list-li .radio radio{-webkit-transform: scale(0.8);transform: scale(0.8);}
+.list-li .list-add{background: #f5f5f5;width: 150rpx;height: 150rpx;line-height: 150rpx;color:#ddd;position: relative;}
+.list-li .icon-guanbi{line-height:44rpx;width:100%;background: rgba(0, 0, 0, .6);position: absolute;bottom:0;left: 0;}
+.list-li textarea{width:100%;min-height: 100rpx;}
+.list-li text{line-height: 92rpx;margin-right: 120rpx;}
+.list-li text.black{margin-right: 60rpx;}
+.list-li .list-in text.addclass{line-height: 46rpx;}
+.list-in .add{padding-right:60rpx;}
+.list-li image{width: 100%;height:100%;}
+.list-li.shangjia::after{content: '';display: block;width: 20rpx;height: 20rpx;border:1rpx solid;border-color: #ccc #ccc transparent transparent;position: absolute;top:60%;left:97%;-webkit-transform: translate(-60%,-97%) rotate(45deg);transform: translate(-60%,-97%) rotate(45deg);background: none;z-index: 999;}
+
+.ruzhu-rule-box{font-size: 28rpx;color: #666;}
+.ruzhu-rule-box checkbox{transform: scale(0.9);margin-top: 20rpx;}
+.ruzhu-rule{color: #2196F3;font-weight: bold;}
+
+.btn{margin: 60rpx 0;}
+/* .btn button{background: #009aff;} */
+.btn button:active{background: #0594f2;}
+
+
+
+
+
+
+.upload-img{padding-bottom:30rpx; overflow: hidden;margin-right: -42rpx;} 
+.upload-img .item{ width:128rpx; height: 128rpx; margin-top: 16rpx; float:left; margin-right: 16rpx;position: relative;}
+ .upload-img .item image{ width: 100%; height: 100%;}
+/*.upload-img .item:nth-child(5n){  margin-right: 0;} */
+.upload-img .item.add{ border: 1px solid #ccc; position: relative;}
+.upload-img .item.add::after,.upload-img .item.add::before{ content: ""; width: 50%; height: 4px; border-radius: 2px; display: block; position: absolute; background: #ccc; left: 50%; top: 50%; -webkit-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}
+.upload-img .upload-icon{position: absolute;bottom:0px;left:0;color:#fff;background:rgba(0, 0, 0, 0.8);width:100%;height: 46rpx;font-size:12px;text-align: center;z-index: 2;}
+.upload-img .item-del{width:24rpx;height: 24rpx;line-height:28rpx;border:1rpx solid #fff;border-radius: 50%;margin-right: 0;display: block;position: absolute;top:50%;left: 50%;-webkit-transform:translate(-50%,-50%) rotate(90deg);transform:translate(-50%,-50%) rotate(90deg);}
+.upload-img .item-del::before{content: '';display: block;width: 1rpx;height: 10rpx;background: #fff;position: absolute;top:50%;left: 50%;-webkit-transform: translate(-50%,-50%) rotate(45deg);transform: translate(-50%,-50%) rotate(45deg);}
+.upload-img .item-del::after{content: '';display: block;width: 1rpx;height: 10rpx;background: #fff;position: absolute;top:50%;left: 50%;-webkit-transform: translate(-50%,-50%) rotate(-45deg);transform: translate(-50%,-50%) rotate(-45deg);}
+
+.upload-img .item.add::after{ -webkit-transform:translate(-50%,-50%) rotate(90deg);transform:translate(-50%,-50%) rotate(90deg);}
+.gonggao{border:12rpx solid rgba(0, 0, 0, 0.1);padding:30rpx;}
+.gonggao .black{font-weight: bold;}
+.btn{margin: 40rpx 0;}
+.btn .linght{display: block;}
+

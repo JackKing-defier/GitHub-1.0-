@@ -1,0 +1,142 @@
+<import src="/pages/store/store-common/storetpl.wxml" />
+<template is="load_bg" data="{{is_show_load_bg}}">
+</template>
+<view class="marker-cover">
+  <image class="marker-cover-img" src="{{market_info.config_info.banner_img}}" mode="aspectFill"></image>
+  <view class="marker-search tc">
+    <input class="marker-search-inp" placeholder="搜索" placeholder-style='font-size:14px;' bindconfirm='keyboardComplete' value='{{keywords}}' />
+  </view>
+</view>
+<!-- 市集信息展示 -->
+<view class="marker-info-show mb10">
+  <view class="marker-info-item">店铺：
+    <text class="marker-info-num">{{market_info.market_store_num}}</text>
+  </view>
+  <view class="marker-info-item">商品：
+    <text class="marker-info-num">{{market_info.all_goods_num}}</text>
+  </view>
+  <view class="marker-info-item">人气值：
+    <text class="marker-info-num">{{market_info.market_page_views}}</text>
+  </view>
+</view>
+<!-- 市集活动 -->
+<!-- <view class="marker-activity activity-odd">
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+</view>
+<view class="marker-activity activity-even">
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+</view>
+<view class="marker-activity activity-odd">
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+</view>
+<view class="marker-activity activity-even">
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+</view>
+<view class="marker-activity activity-odd">
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+</view>
+<view class="marker-activity activity-even">
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+  <view class="acticity-item">
+    <image class="scale-rule" src='/images/default.png' mode="aspectFill"></image>
+    <view class="acticity-txt">年底促销降价</view>
+  </view>
+</view> -->
+
+<!-- 筛选菜单 -->
+<view class="screen-menu">
+  <view class="screen-nav-box mb10">
+    <view class="screen-nav screen-more {{is_show_cates_v==true?'active':''}}"  bindtap='show_or_hide_cate_v' >
+      <text class="lineText screen-nav-txt">{{select_category_title}}</text>
+    </view>
+    <view class="screen-nav" bindtap='change_sort_type'>热销商品</view>
+  </view>
+  <view class="screen-pop"  wx:if="{{is_show_cates_v==true}}">
+    <view class="screen-item-box">
+      <view class="screen-item {{select_category_id==''?'active':''}}" data-title='全部' data-id='' bindtap='selectCategory'>全部</view>
+      <block wx:for="{{categorys}}" wx:for-item="citem">
+        <view class="screen-item {{select_category_id==citem.id?'active':''}}" data-title='{{citem.title}}' data-id='{{citem.id}}' bindtap='selectCategory'>{{citem.title}}</view>
+      </block>
+    </view>
+    <view class="screen-popbg"></view>
+  </view>
+</view>
+
+<view class="marker-goods-box">
+  <import src="/pages/store/store-common/storetpl.wxml" />
+  <template is="marker-goods" data="{{goodsArr}}"></template>
+</view>

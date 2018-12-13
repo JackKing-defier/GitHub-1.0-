@@ -1,0 +1,330 @@
+<import src="/pages/store/store-common/storetpl.wxml" />
+<template is="load_bg" data="{{is_show_load_bg}}">
+</template>
+<block wx:if="{{is_show_load_bg==false}}">
+  <view class="store-tpl">
+    <view class="store-swiper-box">
+      <swiper class="store-swiper" autoplay="true" circular='true' bindchange="storeSwiperChange">
+        <swiper-item wx:for="{{store_data.store_shijing_arr}}" wx:for-item="simgitem">
+          <image src="{{simgitem}}" mode="aspectFill"></image>
+        </swiper-item>
+      </swiper>
+      <view class="store-swiper-bottom">
+        <view class="panorama-btn" wx:if="{{store_data.store_is_webview_open ==1}}" bindtap='toWebView'>
+          <text class="mr5 iconfont icon-quanjing"></text>{{store_data.store_webview_text}}</view>
+        <view class="store-swiper-dots">{{storeSwiperNum+1}} / {{store_data.store_shijing_arr.length}}</view>
+      </view>
+    </view>
+    <view class="store-info">
+      <view class="flex">
+        <view class="store_logo">
+          <image class="img circle" src="{{store_data.store_logo}}" mode="aspectFill"></image>
+        </view>
+        <view class="sub ml10 fb f18">{{store_data.store_name}}</view>
+      </view>
+      <view class="shop-tag mt10">
+        <block wx:for="{{store_data.store_fuwu}}" wx:for-item="fuwuItem">
+          <text wx:if="{{fuwuItem}}">{{fuwuItem}}</text>
+        </block>
+      </view>
+
+      <view class="mt10">
+        <text class="mr5 iconfont icon-timefill lightgrey"></text>
+        <text>{{store_data.store_open_time_text}}：{{store_data.office_time}}</text>
+      </view>
+      <view class="mt5" bindtap='huodong_info_bind' wx:if="{{store_data.store_gonggao}}">
+        <text class="mr5 iconfont icon-notificationfill lightgrey"></text>
+        <text>公告：{{store_data.store_gonggao}}</text>
+      </view>
+      <view class="mt5 flex">
+        <text class="mr5 iconfont icon-locationfill lightgrey"></text>
+        <text class="sub lineText2 mr10" bindtap='get_location_bind'>{{store_data.store_address}}</text>
+        <button type="primary" class="call-btn iconfont icon-dianhua" bindtap="call_phone_bind"></button>
+      </view>
+      <view class="mt10 flex shop-btn" wx:if="{{store_data.is_rapid_pay==1&&!store_data.xcx_appid}}">
+        <button type="primary" class="sub" bindtap='rapid_pay_bind' wx:if="{{store_data.is_rapid_pay==1}}">
+          <text class='iconfont icon-Paywechat'></text> 优惠买单</button>
+      </view>
+      <view class="mt10 flex shop-btn" wx:if="{{store_data.xcx_appid}}">
+        <button type="primary" class="sub" wx:if="{{store_data.is_rapid_pay==1}}">
+          <navigator target="miniProgram" open-type="navigate" app-id="{{store_data.xcx_appid}}" version="release">
+          <text class='iconfont '></text> {{store_data.xcx_entry_title}}
+        </navigator>
+          </button>
+        
+      </view>
+    </view>
+
+
+    <!-- <view class="topimg">
+  <image src="{{store_data.store_logo}}" mode="aspectFill"></image>
+</view> -->
+    <!-- <view class="top-content gridXb">
+    <view class="tc">
+      <view class="fb f18">{{store_data.store_name}}</view>
+      <view class="star f18">
+        <block wx:for="{{store_data.shi_star_arr}}">
+          <text class="iconfont icon-favorfill"></text>
+        </block>
+        <block wx:for="{{store_data.kong_star_arr}}">
+          <text class="iconfont icon-favorfill grey"></text>
+        </block>
+      </view>
+    </view>
+    <view class="mt10 shop-msg">
+      <view>
+        <text class="mr5 iconfont icon-timefill lightgrey"></text>
+        <text>{{store_data.store_open_time_text}}：{{store_data.office_time}}</text>
+      </view>
+      <view class="mt5 lineText2" bindtap='get_location_bind'>
+        <text class="mr5 iconfont icon-locationfill lightgrey"></text>
+        <text>{{store_data.store_address}}</text>
+      </view>
+      <view class="flex mt5">
+        <text class="mr5 iconfont icon-tagfill lightgrey"></text>
+        <view class="shop-tag">
+          <block wx:for="{{store_data.store_fuwu}}" wx:for-item="fuwuItem">
+            <text wx:if="{{fuwuItem}}">{{fuwuItem}}</text>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <view class="mt10 flex flex-center" bindtap='huodong_info_bind' wx:if="{{store_data.store_gonggao}}">
+      <view class="mcolor fb f18 mr15">公告</view>
+      <view class="sub">
+        <swiper class="notice" vertical autoplay circular>
+          <swiper-item class="lineText">{{store_data.store_gonggao}}</swiper-item>
+        </swiper>
+      </view>
+    </view>
+    <view class="mt10 flex shop-btn" wx:if="{{store_data.is_rapid_pay==1&&!store_data.xcx_appid}}">
+      <button type="primary" class="sub" bindtap='rapid_pay_bind' wx:if="{{store_data.is_rapid_pay==1}}">
+        <text class='iconfont icon-Paywechat'></text> 优惠买单</button>
+    </view>
+    <view class="mt10 flex shop-btn" wx:if="{{store_data.xcx_appid}}">
+      <button type="primary" class="sub" bindtap='jump_xcx' id='{{store_data.xcx_appid}}' wx:if="{{store_data.is_rapid_pay==1}}">
+        <text class='iconfont '></text> {{store_data.xcx_entry_title}}</button>
+    </view>
+  </view> -->
+    <view class="ui-cells ui-cells-access" bindtap='coupon_list_bind' wx:if="{{store_data.is_show_coupon==1&&!store_data.xcx_appid}}">
+      <view class="ui-cell flex flex-center">
+        <view class="sub">
+          <text class="ui-cell-icon yellow mr10 iconfont icon-couponfill"></text>
+          <text>代金券、折扣券</text>
+        </view>
+        <view class="right-more arrowR f14 red">{{coupon_num}}个优惠券</view>
+      </view>
+    </view>
+
+    <!-- 限时优惠 
+<view class="ui-cells mt10">
+  <view class="ui-cell head-title">限时优惠</view>
+  <swiper class="limit-time ui-cell">
+    <swiper-item>
+      <view class="limit-time-item">
+        <view class="limit-time-img">
+          <image src="/images/default.png" mode="aspectFill"></image>
+        </view>
+        <view class="ui-cells ui-cell">
+          <view class="lineText">精品生活用品牙刷挂钩</view>
+          <view class="flex flex-center mt10">
+            <view class="sub">
+              <text class="red fb">￥63</text>
+              <text class="ml10 delLine lightgrey f14">￥86</text>
+            </view>
+            <view class="buy-btn">
+              <button size="mini" type="warn" plain>立即抢购</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="limit-time-item">
+        <view class="limit-time-img">
+          <image src="/images/default.png" mode="aspectFill"></image>
+        </view>
+        <view class="ui-cells ui-cell">
+          <view class="lineText">精品生活用品牙刷挂钩</view>
+          <view class="flex flex-center mt10">
+            <view class="sub">
+              <text class="red fb">￥63</text>
+              <text class="ml10 delLine lightgrey f14">￥86</text>
+            </view>
+            <view class="buy-btn">
+              <button size="mini" type="warn" plain>立即抢购</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="limit-time-item">
+        <view class="limit-time-img">
+          <image src="/images/default.png" mode="aspectFill"></image>
+        </view>
+        <view class="ui-cells ui-cell">
+          <view class="lineText">精品生活用品牙刷挂钩</view>
+          <view class="flex flex-center mt10">
+            <view class="sub">
+              <text class="red fb">￥63</text>
+              <text class="ml10 delLine lightgrey f14">￥86</text>
+            </view>
+            <view class="buy-btn">
+              <button size="mini" type="warn" plain>立即抢购</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="limit-time-item">
+        <view class="limit-time-img">
+          <image src="/images/default.png" mode="aspectFill"></image>
+        </view>
+        <view class="ui-cells ui-cell">
+          <view class="lineText">精品生活用品牙刷挂钩</view>
+          <view class="flex flex-center mt10">
+            <view class="sub">
+              <text class="red fb">￥63</text>
+              <text class="ml10 delLine lightgrey f14">￥86</text>
+            </view>
+            <view class="buy-btn">
+              <button size="mini" type="warn" plain>立即抢购</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="limit-time-item">
+        <view class="limit-time-img">
+          <image src="/images/default.png" mode="aspectFill"></image>
+        </view>
+        <view class="ui-cells ui-cell">
+          <view class="">精品生活用品牙刷挂钩</view>
+          <view class="flex flex-center mt10">
+            <view class="sub">
+              <text class="red fb">￥63</text>
+              <text class="ml10 delLine lightgrey f14">￥86</text>
+            </view>
+            <view class="buy-btn">
+              <button size="mini" type="warn" plain>立即抢购</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view> -->
+
+    <view class="store-product mt10" wx:if="{{store_data.recommend_goods.length>0&&!store_data.xcx_appid}}">
+      <view class="ui-cell ui-cell-access flex flex-center shop-tit gridXb" data-consume_type='0' bindtap='goods_list_bind'>
+        <view class="sub head-title">{{store_data.goods_area_title}}</view>
+        <view class="right-more arrowR f14 lightgrey">查看更多</view>
+      </view>
+      <!-- 横版样式 -->
+      <scroll-view scroll-x="true" class="store-product-goods" wx:if="{{store_data.store_template_type==3||store_data.store_template_type==4||store_data.store_template_type==6}}">
+        <block wx:for="{{store_data.recommend_goods}}" wx:for-item="gitem">
+          <view class="store-product-item" bindtap='goods_info_bind' id='{{gitem.id}}'>
+            <view class="product-img">
+              <image class="scale-rule" src="{{gitem.g_img}}" mode="aspectFill"></image>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+
+
+      <!-- 竖版样式 -->
+      <block wx:for="{{store_data.recommend_goods}}" wx:for-item="gitem" wx:if="{{store_data.store_template_type==1||store_data.store_template_type==2||store_data.store_template_type==5}}">
+        <view class="ui-cell gridXb flex" bindtap='goods_info_bind' id='{{gitem.id}}'>
+          <view class="goods-img mr10">
+            <image src="{{gitem.g_img}}" mode="aspectFill"></image>
+          </view>
+          <view class="sub flexC">
+            <view class="sub">{{gitem.g_name}}</view>
+            <view class='f12 grey'>库存:{{gitem.shop_repertory !==null ? gitem.shop_repertory:'未限制'}}</view>
+            <view class="fb f16 red">￥{{gitem.shop_price}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 店铺优品 -->
+    <!-- <view class="ui-cells mt10" wx:if="{{store_data.recommend_goods.length>0&&!store_data.xcx_appid}}">
+    <view class="ui-cell ui-cell-access flex flex-center shop-tit gridXb" data-consume_type='0' bindtap='goods_list_bind'>
+      <view class="sub head-title">{{store_data.goods_area_title}}</view>
+      <view class="right-more arrowR f14 lightgrey">查看更多</view>
+    </view>
+    <block wx:for="{{store_data.recommend_goods}}" wx:for-item="gitem">
+      <view class="ui-cell gridXb flex" bindtap='goods_info_bind' id='{{gitem.id}}'>
+        <view class="goods-img mr10">
+          <image src="{{gitem.g_img}}" mode="aspectFill"></image>
+        </view>
+        <view class="sub flexC goods-info">
+          <view class="sub">{{gitem.g_name}}</view>
+          <view class="fb f16 red">￥{{gitem.shop_price}}</view>
+        </view>
+      </view>
+    </block>
+  </view> -->
+
+
+    <!-- 店铺介绍 -->
+    <view class="ui-cells mt10" wx:if="{{store_data.is_show_store_intro==1&&store_data.store_intro}}">
+      <view class="ui-cell gridXb">
+        <view class="head-title">{{store_data.store_profile_text}}</view>
+      </view>
+      <view class="store-detail-box {{is_show_all_intro==false?'hid-desc':''}}" wx:if="{{store_data.store_intro}}">
+        <view class="intro">
+          <view class="wxParse mb10 content">
+            <import src="../../../wxParse/wxParse.wxml" />
+            <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+          </view>
+        </view>
+      </view>
+      <!-- <view class="ui-cell" style="padding-top:0;" wx:if="{{!store_data.store_intro}}">
+      <view>{{store_data.store_jieshao}}</view>
+      <block wx:for="{{store_data.store_shijing_arr}}" wx:for-item="simgitem">
+        <view class="mt10">
+          <image src="{{simgitem}}" mode="widthFix"></image>
+        </view>
+      </block>
+    </view> -->
+      <!-- 查看更多 -->
+      <view class="sea-more-info" bindtap='change_store_intro_show'>{{is_show_all_intro==false?'查看全部介绍':'收起全部介绍'}}</view>
+    </view>
+    <view class="leaving-msg-btn" bindtap='change_consult_view_show'>
+      <button>留言咨询</button>
+    </view>
+    <!-- 精选评价 -->
+    <view wx:if="{{store_data.is_show_comment==1&&!store_data.xcx_appid}}">
+      <import src="/pages/store/store-common/storetpl.wxml" />
+      <template is="comment" data="{{comment_data:comment_data,comment_title:comment_title}}">
+      </template>
+    </view>
+    <!-- 留言框弹出 -->
+    <view class="leaving-msg-pop floatBox" wx:if="{{is_show_consult_view}}">
+      <form bindsubmit="formSubmit">
+        <view class="leaving-msg-box">
+          <view class="leaving-tit tc">留言咨询</view>
+          <input class="leaving-inp" placeholder-style='font-size:14px;' placeholder="姓名：" name="user_name" />
+          <input class="leaving-inp" placeholder-style='font-size:14px;' placeholder="联系方式：" type='text' name="user_mobile" />
+          <view class="leaving-txtare">
+            <textarea placeholder="请输入您的留言,我们看到后会立即与您联系" name="msg" fixed='true'></textarea>
+          </view>
+          <button type="primary" form-type='submit'>提交</button>
+        </view>
+      </form>
+      <view class="floatBox floatBoxBg" bindtap='change_consult_view_show'></view>
+    </view>
+  </view>
+  <!-- 电话浮动 -->
+  <view class="aside-float-box">
+    <view class="aside-float">
+      <button type="primary" class="iconfont icon-home" bindtap="backHome" wx:if="{{store_type==2}}"></button>
+      <!-- <button type="primary" class="iconfont icon-dianhua" bindtap="call_phone_bind"></button> -->
+    </view>
+  </view>
+</block>

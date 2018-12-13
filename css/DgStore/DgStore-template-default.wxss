@@ -1,0 +1,38 @@
+page{
+    /* 主色调  （用于特别需要突出的文字、按钮和图标） 如：提交按钮、高亮显示文字和图标等 */
+    --DStore-mcolor:#f35150;
+    /* 主色调的rgb值 */
+    --DStore-mcolor-rgb:243,81,80;
+    /* 比主色调略浅的颜色   （用于按钮的激活状态）    */
+    --DStore-lightmcolor:#f56160;
+
+    /* 主色渐变 （用于核销码展示页面背景）   */
+    --DStore-linear-color: linear-gradient(to bottom , #f35150 0%, #ff605f 100%);
+    /*  核销码展示页面小圆点颜色 （注：要和渐变背景相似）  */
+    --DStore-linear-circle: #f65453;
+
+    /* 以下颜色不建议修改 */
+
+    /* 警告色  （用于警示性文字、按钮和图标） */
+    --DStore-warn-color:#f35150;
+    /* 警告色的rgb */
+    --DStore-warn-rgb:243,81,80;
+    /* 白色   （用于区块背景、文字） */
+    --white:#fff;
+    /* 背景点击状态颜色 */
+    --bg-active:#fafafa;
+    /* 辅助色 黄色 */
+    --yellow:#ffaf31;
+    /* 辅助色 红色 */
+    --red:#f66;
+    /* 灰色 */
+    --grey:#666;
+    /* 浅灰 */
+    --lightgrey:#999;
+    /* 背景区块颜色 （用于分割模块的底色） */
+    --bggrey:#f8f8f8;
+    
+    
+}
+
+

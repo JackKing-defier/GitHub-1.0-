@@ -1,0 +1,211 @@
+<!-- 精选评价 -->
+<template name="comment">
+  <view class="ui-cells mt10">
+    <view class="ui-cell ui-cell-access shop-tit gridXb flex flex-center">
+      <view class="sub head-title">{{comment_title}}</view>
+      <!-- <view class="right-more arrowgrey">更多</view> -->
+    </view>
+    <block wx:for="{{comment_data}}" wx:for-item="citem">
+      <view class="ui-cell flex">
+        <view class="appraise-userimg mr10">
+          <image class="circle" src="{{citem.user_headimgurl}}" mode="aspectFill"></image>
+        </view>
+        <view class="sub appraise-right gridXb">
+          <view class="flex">
+            <view class="sub">
+              <block wx:if="{{citem.is_anonymous==1}}">
+                <view class="grey">匿名</view>
+              </block>
+              <block wx:else>
+                <view class="grey">{{citem.user_nickname}}</view>
+              </block>
+              <view class="star f12">
+                <block wx:for="{{citem.shi_xing_arr}}">
+                  <text class="iconfont icon-favorfill"></text>
+                </block>
+                <block wx:for="{{citem.kong_xing_arr}}">
+                  <text class="iconfont icon-favorfill lightgrey"></text>
+                </block>
+              </view>
+            </view>
+            <view class="lightgrey f12 self-center">{{citem.add_time}}</view>
+          </view>
+          <view class="mt10">{{citem.content}}</view>
+          <view class="appraise-pho">
+            <block wx:for="{{citem.comment_imgs}}" wx:for-item="imgitem">
+              <view class="appraise-pho-item">
+                <image src="{{imgitem.imgurl}}" mode="aspectFill"></image>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>
+<!-- 门店商品列表 -->
+<template name="store_list">
+  <view class="store_list-box" id="store_list">
+    <block wx:if="{{store_list.length==0}}">
+      <view class="no-content tc">
+        <image class="no-content-img" src="http://www.ixiaochengxu.cc/resource/images/common/no-message.png" mode="widthFix"></image>
+        <view class="mt10">呀！还没来得及添加~~</view>
+      </view>
+    </block>
+    <block wx:for="{{store_list}}" wx:for-item="storeItem">
+      <block wx:if="{{storeItem.xcx_appid!=null}}">
+        <navigator target="miniProgram" open-type="navigate" app-id="{{storeItem.xcx_appid}}" extra-data="" version="release">
+          <view class="shop-list flex gridXb">
+            <view class="shop-list-img mr10">
+              <image src="{{storeItem.store_logo}}" mode="aspectFill"></image>
+            </view>
+            <view class="sub">
+              <view class="flex">
+                <view class="sub lineText">
+                  <view class="shop-activity-box">
+                    <text class='shop-activity' wx:if="{{storeItem.card_count>0}}">劵</text>
+                    <!-- <text class='shop-activity jian'>减</text> -->
+                  </view>
+                  <view class="shop-title"> {{storeItem.store_name}}</view>
+                </view>
+                <!--<text class="red">￥255起</text>-->
+              </view>
+              <view class="flex mt5 f14">
+                <view class="grey">{{storeItem.store_grade}}分 | {{storeItem.commentNum}} 条评论</view>
+                <view class="shop-tag sub grey tr ml5">
+                  <block wx:for="{{storeItem.store_fuwu}}" wx:for-item="fuwuItem">
+                    <text class="lineText" wx:if="{{fuwuItem}}">{{fuwuItem}}</text>
+                  </block>
+                </view>
+              </view>
+              <view class="flex linght f12 shop-adress mt5">
+                <view class="lineText sub">
+                  <text class="iconfont icon-locationfill"></text> {{storeItem.store_address}}</view>
+                <view class="">{{storeItem.store_julimi}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </block>
+      <block wx:else>
+      <view class="shop-list flex gridXb" id='{{storeItem.store_id}}' data-store_template_type='{{storeItem.store_template_type}}' bindtap="store_info_bind">
+        <view class="shop-list-img mr10">
+          <image src="{{storeItem.store_logo}}" mode="aspectFill"></image>
+        </view>
+        <view class="sub">
+          <view class="flex">
+            <view class="sub lineText">
+              <view class="shop-activity-box">
+                <text class='shop-activity' wx:if="{{storeItem.card_count>0}}">劵</text>
+                <!-- <text class='shop-activity jian'>减</text> -->
+              </view>
+              <view class="shop-title"> {{storeItem.store_name}}</view>
+            </view>
+            <!--<text class="red">￥255起</text>-->
+          </view>
+          <view class="flex mt5 f14">
+            <view class="grey">{{storeItem.store_grade}}分 | {{storeItem.commentNum}} 条评论</view>
+            <view class="shop-tag sub grey tr ml5">
+              <block wx:for="{{storeItem.store_fuwu}}" wx:for-item="fuwuItem">
+                <text class="lineText" wx:if="{{fuwuItem}}">{{fuwuItem}}</text>
+              </block>
+            </view>
+          </view>
+          <view class="flex linght f12 shop-adress mt5">
+            <view class="lineText sub">
+              <text class="iconfont icon-locationfill"></text> {{storeItem.store_address}}</view>
+            <view class="">{{storeItem.store_julimi}}</view>
+          </view>
+        </view>
+      </view>
+      </block>
+
+    </block>
+  </view>
+</template>
+
+
+<template name="load_bg">
+  <block wx:if="{{is_show_load_bg==true}}">
+    <view class="loading-data">
+      <image class="mid" src="/images/store_background.png" mode="widthFix"></image>
+    </view>
+  </block>
+</template>
+
+<template name="marker-goods">
+  <block wx:if="{{goodsArr.length==0}}">
+    <view class="no-content tc">
+      <image class="no-content-img" src="http://www.ixiaochengxu.cc/resource/images/common/no-message.png" mode="widthFix"></image>
+      <!-- <view class="mt10">呀！还没来得及添加~~</view> -->
+    </view>
+  </block>
+  <block wx:for="{{goodsArr}}" wx:for-item="goodsItem">
+    <view class="marker-goods-item">
+      <view class="marker-goods-img">
+        <image class="img" src="{{goodsItem.g_img_url}}" mode="aspectFill"></image>
+      </view>
+      <view class="goods-info">
+        <view class="flex">
+          <view class="sub mr10">
+            <view class="goods-name lineText2">{{goodsItem.g_name}}</view>
+            <view class="distance">
+              <text class="mr5 iconfont icon-locationfill"></text>
+              <text>距我{{goodsItem.store_distance_text}}</text>
+            </view>
+          </view>
+          <view class="tc">
+            <view class="goods-price">￥{{goodsItem.shop_price}}</view>
+            <button class="goshop-btn" type="primary" data-store_id='{{goodsItem.store_id}}' data-goods_id='{{goodsItem.goods_id}}' data-goods_category_id='{{goodsItem.goods_category_id}}' bindtap='push_to_store'>进店购买</button>
+          </view>
+        </view>
+        <view class="flex mt10 f14 grey">
+          <view class="sub lineText mr10">
+            <text class='mr5 iconfont icon-shop'></text>
+            <text>{{goodsItem.store_name}}</text>
+          </view>
+          <view>{{goodsItem.visit_user_num}}人已进店</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>
+
+<!-- 门店商品搜索结果列表 begin-->
+<template name="search-goods">
+  <view class="store_list-box" id="search_goods">
+    <block wx:if="{{search_goods_list.length==0}}">
+      <view class="no-content tc">
+        <image class="no-content-img" src="http://www.ixiaochengxu.cc/resource/images/common/no-message.png" mode="widthFix"></image>
+        <view class="mt10">呀！空空如也~~{{search_goods_list.length}}</view>
+      </view>
+    </block>
+    <block wx:for="{{search_goods_list}}" wx:for-item="goodsItem" wx:if="{{index<15}}">
+      <view class="shop-list flex gridXb" id='{{goodsItem.store_id}}' bindtap="store_info_bind">
+        <view class="shop-list-img mr10">
+          <image src="{{goodsItem.g_img}}" mode="aspectFill"></image>
+        </view>
+        <view class="sub">
+          <view class="flex">
+            <view class="sub lineText">
+              <view class="shop-title"> {{goodsItem.g_name}}</view>
+            </view>
+            <!--<text class="red">￥255起</text>-->
+          </view>
+          <view class="flex mt5 f14">
+            <view class="grey">已售:{{goodsItem.sale_all_num}}份 | 库存:{{goodsItem.shop_repertory!=null?goodsItem.shop_repertory:'未限制'}}</view>
+            <view class="shop-tag sub grey tr ml5">
+              <text class="lineText" wx:if="{{goodsItem.store_name}}">店铺:{{goodsItem.store_name}}</text>
+            </view>
+          </view>
+          <view class="flex linght f12 shop-adress mt5">
+            <view class="lineText sub">
+              <text class="iconfont icon-locationfill"></text> {{goodsItem.store_address!=null?goodsItem.store_address:'未知'}}</view>
+            <view class="">{{goodsItem.distance!=null?goodsItem.distance+'km':''}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>
+<!-- 门店商品搜索结果列表 end-->

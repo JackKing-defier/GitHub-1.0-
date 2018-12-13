@@ -1,0 +1,54 @@
+<!--pages/hexiao/index.wxml-->
+
+<view class="m15" wx:if="{{!is_orderInfo_show==1}}">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="top-content flex">
+        <input class="sub hexiao-input gridFour mr10" name="order_number" placeholder="请输入核销码" />
+        <button class="top-btn" size="mini" type="primary" formType="submit">确定</button>
+    </view>
+     </form>
+    <view class="hexiao-box mt10">
+      <button class="hexiao-btn  mid" type="primary" bindtap="scanCode">扫码核销</button>
+    </view>
+</view>
+
+<!-- <view class="floatBox floatBoxBg"  style="display:block" wx:if="{{is_orderInfo_show==1}}">
+  <view class="mid hexiao-detail">
+    <view>
+      <block wx:for="{{oinfo.glist}}" wx:for-item="gitem">
+        <view class="hexiao-list flex gridXb"><text class="hexiao-detail-title">商品名称：</text><text class="sub grey">{{gitem.goods_name}}</text></view>
+      </block>
+      <view class="hexiao-list flex gridXb"><text class="hexiao-detail-title">订单号：</text><text class="sub grey">{{oinfo.order_sn}}</text></view>
+      <view class="hexiao-list flex gridXb"><text class="hexiao-detail-title">下单时间：</text><text class="sub grey">{{oinfo.ctime}}</text></view>
+    </view>
+    <view class="tc popup-btn">是否核销此订单？</view>
+    <view class="flex tc popup-btn">
+      <view class="sub" bindtap="sureChargeOff">确认</view>
+      <view class="sub" bindtap="cancel">取消</view>
+    </view>
+  </view>
+</view> -->
+
+ <view class="m15"  wx:if="{{is_orderInfo_show==1}}">
+
+    <view class="top-content flex gridXt" wx:for="{{oinfo.glist}}" wx:for-item="item">
+        <view class="goods-img mr10"><image src="{{item.goods_img}}" mode="aspectFill"></image></view>
+        <view class="sub mr15 flexC">
+            <view class="sub">{{item.goods_name}}</view>
+            <view class="grey">×{{item.goods_number}}</view>
+        </view>
+        <view class="red f16 fb self-bottom">￥{{item.goods_amount}}</view>
+    </view>
+    <view class="ui-cells">
+        <view class=" ui-cell round-corner-cut grey">
+           <view class="mt10">姓名：{{oinfo.consignee}}</view>
+            <view class="mt10">电话：{{oinfo.mobile}}</view>
+            <view class="mt10">订单号：{{oinfo.order_sn}}</view>
+            <view class="mt10">下单时间：{{oinfo.ctime}}</view>
+        </view>
+        <view class="ui-cell">
+            <button type="primary" bindtap="sureChargeOff">确认核销</button>
+            <button class="mt10" bindtap="cancel">取消</button>
+        </view>
+    </view>
+</view> 
